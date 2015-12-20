@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CrossCode Min</title>
+  <link rel="stylesheet" type="text/css" href="impact/page/css/style.css"/>
+  <link rel="stylesheet" type="text/css" href="impact/page/css/ui-darkness/jquery-ui-1.10.2.custom.min.css"/>
+  <link rel="stylesheet" type="text/css" href="game/page/game-base.css"/>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=320, initial-scale=0.5, maximum-scale=0.5, user-scalable=0"/>
+
+  <script type="text/javascript" src="impact/page/js/aes.js" charset="utf-8"></script>
+  <script type="text/javascript" src="impact/page/js/jquery-1.11.1.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="impact/page/js/jquery-ui-1.10.2.custom.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="game/page/game-base.js" charset="utf-8"></script>
+<script>
+  var IG_GAME_SCALE = 2;
+  var IG_GAME_CACHE = "";
+  var IG_ROOT = "";
+  var IG_WIDTH = 568;
+  var IG_HEIGHT = 320;
+  var IG_HIDE_DEBUG = false;
+  var IG_SCREEN_MODE_OVERRIDE = 2;
+  var IG_WEB_AUDIO_BGM = false;
+  var IG_FORCE_HTML5_AUDIO = false;
+  var LOAD_LEVEL_ON_GAME_START = "test";
+</script>
+<script>
+  var IG_GAME_DEBUG = false;
+  var IG_GAME_BETA  = true;
+</script>
+<script type="text/javascript">
+    /* signals.min.js */
+    /*
+     JS Signals <http://millermedeiros.github.com/js-signals/>
+     Released under the MIT license
+     Author: Miller Medeiros
+     Version: 1.0.0 - Build: 268 (2012/11/29 05:48 PM)
+    */
+    (function(i){function h(a,b,c,d,e){this._listener=b;this._isOnce=c;this.context=d;this._signal=a;this._priority=e||0}function g(a,b){if(typeof a!=="function")throw Error("listener is a required param of {fn}() and should be a Function.".replace("{fn}",b));}function e(){this._bindings=[];this._prevParams=null;var a=this;this.dispatch=function(){e.prototype.dispatch.apply(a,arguments)}}h.prototype={active:!0,params:null,execute:function(a){var b;this.active&&this._listener&&(a=this.params?this.params.concat(a):
+    a,b=this._listener.apply(this.context,a),this._isOnce&&this.detach());return b},detach:function(){return this.isBound()?this._signal.remove(this._listener,this.context):null},isBound:function(){return!!this._signal&&!!this._listener},isOnce:function(){return this._isOnce},getListener:function(){return this._listener},getSignal:function(){return this._signal},_destroy:function(){delete this._signal;delete this._listener;delete this.context},toString:function(){return"[SignalBinding isOnce:"+this._isOnce+
+    ", isBound:"+this.isBound()+", active:"+this.active+"]"}};e.prototype={VERSION:"1.0.0",memorize:!1,_shouldPropagate:!0,active:!0,_registerListener:function(a,b,c,d){var e=this._indexOfListener(a,c);if(e!==-1){if(a=this._bindings[e],a.isOnce()!==b)throw Error("You cannot add"+(b?"":"Once")+"() then add"+(!b?"":"Once")+"() the same listener without removing the relationship first.");}else a=new h(this,a,b,c,d),this._addBinding(a);this.memorize&&this._prevParams&&a.execute(this._prevParams);return a},
+    _addBinding:function(a){var b=this._bindings.length;do--b;while(this._bindings[b]&&a._priority<=this._bindings[b]._priority);this._bindings.splice(b+1,0,a)},_indexOfListener:function(a,b){for(var c=this._bindings.length,d;c--;)if(d=this._bindings[c],d._listener===a&&d.context===b)return c;return-1},has:function(a,b){return this._indexOfListener(a,b)!==-1},add:function(a,b,c){g(a,"add");return this._registerListener(a,!1,b,c)},addOnce:function(a,b,c){g(a,"addOnce");return this._registerListener(a,
+    !0,b,c)},remove:function(a,b){g(a,"remove");var c=this._indexOfListener(a,b);c!==-1&&(this._bindings[c]._destroy(),this._bindings.splice(c,1));return a},removeAll:function(){for(var a=this._bindings.length;a--;)this._bindings[a]._destroy();this._bindings.length=0},getNumListeners:function(){return this._bindings.length},halt:function(){this._shouldPropagate=!1},dispatch:function(a){if(this.active){var b=Array.prototype.slice.call(arguments),c=this._bindings.length,d;if(this.memorize)this._prevParams=
+    b;if(c){d=this._bindings.slice();this._shouldPropagate=!0;do c--;while(d[c]&&this._shouldPropagate&&d[c].execute(b)!==!1)}}},forget:function(){this._prevParams=null},dispose:function(){this.removeAll();delete this._bindings;delete this._prevParams},toString:function(){return"[Signal active:"+this.active+" numListeners:"+this.getNumListeners()+"]"}};var f=e;f.Signal=e;typeof define==="function"&&define.amd?define(function(){return f}):typeof module!=="undefined"&&module.exports?module.exports=f:i.signals=
+    f})(this);
+</script>
+<script type="text/javascript">
+    /* lie.min.js */
+    !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var t;t="undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:this,t.Promise=e()}}(function(){return function e(t,n,r){function o(u,s){if(!n[u]){if(!t[u]){var c="function"==typeof require&&require;if(!s&&c)return c(u,!0);if(i)return i(u,!0);var f=new Error("Cannot find module '"+u+"'");throw f.code="MODULE_NOT_FOUND",f}var a=n[u]={exports:{}};t[u][0].call(a.exports,function(e){var n=t[u][1][e];return o(n?n:e)},a,a.exports,e,t,n,r)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<r.length;u++)o(r[u]);return o}({1:[function(e,t,n){"use strict";function r(){}function o(e){if("function"!=typeof e)throw new TypeError("resolver must be a function");this.state=j,this.queue=[],this.outcome=void 0,e!==r&&c(this,e)}function i(e,t,n){this.promise=e,"function"==typeof t&&(this.onFulfilled=t,this.callFulfilled=this.otherCallFulfilled),"function"==typeof n&&(this.onRejected=n,this.callRejected=this.otherCallRejected)}function u(e,t,n){d(function(){var r;try{r=t(n)}catch(o){return v.reject(e,o)}r===e?v.reject(e,new TypeError("Cannot resolve promise with itself")):v.resolve(e,r)})}function s(e){var t=e&&e.then;return e&&"object"==typeof e&&"function"==typeof t?function(){t.apply(e,arguments)}:void 0}function c(e,t){function n(t){i||(i=!0,v.reject(e,t))}function r(t){i||(i=!0,v.resolve(e,t))}function o(){t(r,n)}var i=!1,u=f(o);"error"===u.status&&n(u.value)}function f(e,t){var n={};try{n.value=e(t),n.status="success"}catch(r){n.status="error",n.value=r}return n}function a(e){return e instanceof this?e:v.resolve(new this(r),e)}function l(e){var t=new this(r);return v.reject(t,e)}function h(e){function t(e,t){function r(e){u[t]=e,++s!==o||i||(i=!0,v.resolve(f,u))}n.resolve(e).then(r,function(e){i||(i=!0,v.reject(f,e))})}var n=this;if("[object Array]"!==Object.prototype.toString.call(e))return this.reject(new TypeError("must be an array"));var o=e.length,i=!1;if(!o)return this.resolve([]);for(var u=new Array(o),s=0,c=-1,f=new this(r);++c<o;)t(e[c],c);return f}function p(e){function t(e){n.resolve(e).then(function(e){i||(i=!0,v.resolve(s,e))},function(e){i||(i=!0,v.reject(s,e))})}var n=this;if("[object Array]"!==Object.prototype.toString.call(e))return this.reject(new TypeError("must be an array"));var o=e.length,i=!1;if(!o)return this.resolve([]);for(var u=-1,s=new this(r);++u<o;)t(e[u]);return s}var d=e("immediate"),v={},y=["REJECTED"],m=["FULFILLED"],j=["PENDING"];t.exports=n=o,o.prototype["catch"]=function(e){return this.then(null,e)},o.prototype.then=function(e,t){if("function"!=typeof e&&this.state===m||"function"!=typeof t&&this.state===y)return this;var n=new this.constructor(r);if(this.state!==j){var o=this.state===m?e:t;u(n,o,this.outcome)}else this.queue.push(new i(n,e,t));return n},i.prototype.callFulfilled=function(e){v.resolve(this.promise,e)},i.prototype.otherCallFulfilled=function(e){u(this.promise,this.onFulfilled,e)},i.prototype.callRejected=function(e){v.reject(this.promise,e)},i.prototype.otherCallRejected=function(e){u(this.promise,this.onRejected,e)},v.resolve=function(e,t){var n=f(s,t);if("error"===n.status)return v.reject(e,n.value);var r=n.value;if(r)c(e,r);else{e.state=m,e.outcome=t;for(var o=-1,i=e.queue.length;++o<i;)e.queue[o].callFulfilled(t)}return e},v.reject=function(e,t){e.state=y,e.outcome=t;for(var n=-1,r=e.queue.length;++n<r;)e.queue[n].callRejected(t);return e},n.resolve=a,n.reject=l,n.all=h,n.race=p},{immediate:2}],2:[function(e,t,n){(function(e){"use strict";function n(){a=!0;for(var e,t,n=l.length;n;){for(t=l,l=[],e=-1;++e<n;)t[e]();n=l.length}a=!1}function r(e){1!==l.push(e)||a||o()}var o,i=e.MutationObserver||e.WebKitMutationObserver;if(i){var u=0,s=new i(n),c=e.document.createTextNode("");s.observe(c,{characterData:!0}),o=function(){c.data=u=++u%2}}else if(e.setImmediate||"undefined"==typeof e.MessageChannel)o="document"in e&&"onreadystatechange"in e.document.createElement("script")?function(){var t=e.document.createElement("script");t.onreadystatechange=function(){n(),t.onreadystatechange=null,t.parentNode.removeChild(t),t=null},e.document.documentElement.appendChild(t)}:function(){setTimeout(n,0)};else{var f=new e.MessageChannel;f.port1.onmessage=n,o=function(){f.port2.postMessage(0)}}var a,l=[];t.exports=r}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{}]},{},[1])(1)});
+</script>
+<script type="text/javascript">
+    /* PROJECT DORITO V1 ALPHA */
+    var Dorito=function(){this.logHistory=[],this.isNW=!1,this.nw=null,this.Signal=signals.Signal,this.modPath="addons/",this.initDone=!1,this.Filesystem=null};Dorito.prototype.Events={DoritoInitialized:new signals.Signal,CrossCodeLoaded:new signals.Signal},Dorito.prototype._log=console.log.bind(this),Dorito.prototype._warn=console.warn.bind(this),Dorito.prototype._error=console.error.bind(this),Dorito.prototype._loadModules=function(){this.Filesystem=require("fs")},Dorito.prototype._loadNW=function(){try{return this.nw=require("nw.gui"),console.log("NW.js context detected. Dorito will load mods from dataPath."),this.isNW=!0,this._loadModules(),!0}catch(t){return console.log("Possible browser context detected. Dorito will load from addons/"),this.isNW=!1,!1}},Dorito.prototype.appendScript=function(t){return new Promise(function(n,e){try{var o=document.getElementsByTagName("head")[0],r=document.createElement("script");r.type="text/javascript",r.src=t,o.appendChild(r),n()}catch(i){e(i)}})},Dorito.prototype.createNWFolder=function(){var t=this;return new Promise(function(n,e){t.Filesystem.mkdir(t.modPath,function(t){return t?(console.error(t),e(t)):void n()})})},Dorito.prototype.loadAllNW=function(){var t=this;return new Promise(function(n,e){try{t.Filesystem.readdir(t.modPath,function(t,o){if(t)return e(t);var r=o.filter(function(t){return".js"===t.substr(-3)});console.log(r),n(r)})}catch(o){e(o)}}).then(function(n){return Promise.all(n.map(function(n){return t.appendScript(t.modPath+n)}))})["catch"](function(n){t.disable(n)})},Dorito.prototype.requestFile=function(t){return new Promise(function(n,e){var o=new XMLHttpRequest;o.open("GET",t,!0),o.onload=function(){this.status>=200&&this.status<400?n(this.response):e(new Error(this.statusText))},o.onerror=function(){e(new Error("Network error."))},o.send()})},Dorito.prototype.loadAllBrowser=function(){var t,n=this;return n.requestFile(n.modPath+"/addons.json").then(JSON.parse).then(function(e){return t=e,console.log("Found "+t.libs.length+" libs."),Promise.all(t.libs.map(function(t){return n.appendScript(n.modPath+t.path)}))}).then(function(){if(!t)throw new Error("No addons list received!");return console.log("Found "+t.addons.length+" addons."),Promise.all(t.addons.map(function(t){return n.appendScript(n.modPath+t.path)}))})["catch"](function(t){n.disable(t)})},Dorito.prototype.ready=function(){this.initDone?(console.log("CrossCode Ready"),this.Events.CrossCodeLoaded.dispatch()):console.error("WARN: Didn't load in time!")},Dorito.prototype.doneInit=function(){console.log("Done init."),this.initDone=!0},Dorito.prototype.callDone=function(){this.Events.DoritoInitialized.dispatch()},Dorito.prototype.disable=function(t){throw t},Dorito.prototype.init=function(){var t=this;this._loadNW(),this.isNW?(this.modPath=this.nw.App.dataPath+"/addons/",this.loadAllNW().then(function(){return t.doneInit()})["catch"](function(n){n&&n.code&&"ENOENT"===n.code?(console.warn("Mod folder not found, creating"),t.createNWFolder().then(function(){return alert("Mod folder created at:\n\n"+self.modPath+"\n\nPlease restart the game!"),t.nw.App.quit()})["catch"](console.error.bind(this))):console.error(n)})):this.loadAllBrowser().then(function(){return t.doneInit()})["catch"](console.error.bind(this))};var dorito=new Dorito,DoritoAPI=function(t){if(!(t&&t instanceof Dorito))throw new TypeError("DoritoAPI: Dorito instance not passed as argument to init");this.dorito=t,this.self=this,this.Injectors={},this.Injectors.override=function(t,n,e){t[n]=e(t[n])},this.InjectTypes={},this.InjectTypes.after=function(t){return function(n){return function(){var e=n.apply(this,arguments);return t.apply(this,arguments),e}}},this.InjectTypes.before=function(t){return function(n){return function(){return t.apply(this,arguments),n.apply(this,arguments)}}},this.InjectTypes.filter=function(t){return function(n){return function(){var e=t.apply(this,arguments);return n.apply(this,e&&e instanceof Array?e:arguments)}}},this.InjectTypes.compose=function(t){return function(n){return function(){return t.call(this,n.apply(this,arguments))}}},this.InjectTypes.benchmark=function(t){return function(n){return function(){var e=performance.now(),o=n.apply(this,arguments),r=performance.now();return t({benchmark:e-r,returnValue:o}),o}}},this.InjectTypes.memoize=function(t){var n={};return function(){for(var e in n)if(n.hasOwnProperty(e)&&arguments==e[0])return e[1];var o=t.call(this,x);return n.push([arguments,o]),o}},this.InjectTypes.dispatch_before=function(t){function n(t){return"[object Arguments]"===Object.prototype.toString.call(t)}if(!t)throw new TypeError("No listener passed!");if(!(t instanceof signals.Signal))throw new TypeError("Listener is not a Signal!");var e=self;return function(o){var r=t;return function(){var t={};if(t.args=arguments,t.self=this,t.cancelled=!1,r.dispatch(t),t.cancelled)return null;var i=t.args||arguments;return i instanceof Array||n(i)||(e.dorito._warn("dispatch_before result is not an array, using original arguments. NOTE new versions shouldn't let code reach here!"),i=arguments),o.apply(this,i)}}},this.InjectTypes.dispatch_after=function(t){if(!t)throw new TypeError("No listener passed!");if(!(t instanceof signals.Signal))throw new TypeError("Listener is not a Signal!");self;return function(n){var e=t;return function(){var t={};t.args=arguments,t.self=this;var o=n.apply(this,arguments);t.args!=arguments?t._argsAfterRun=arguments:t._argsAfterRun=null,t.returnValue=o,e.dispatch(t)}}},this.GameCanvas={},this.GameCanvas.canvas=document.getElementById("canvas"),this.GameCanvas.getCanvas=function(){return this.GameCanvas.canvas},this.GameCanvas.getContext=function(){return this.GameCanvas.canvas.getContext("2d")},console.log("DoritoAPI loaded")},dorito_api=new DoritoAPI(dorito);
+</script>
+<script type="text/javascript" src="js/game.compiled.js"></script>
+<script type="text/javascript" src="impact/page/js/options.js" charset="utf-8"></script>
+
+</head>
+<body style="overflow: hidden">
+
+
+<div id="options" class="toggleMenu" style="display: none" >
+    <a class="trigger" ><span>Options</span></a>
+    <ul class="optionList"></ul>
+</div>
+
+
+<div id="game" >
+    <canvas id="canvas"></canvas>
+</div>
+
+<script type="text/javascript">
+    // make sure we don't let node-webkit show it's error page
+    // TODO for release mode, there should be an option to write to a file or something.
+    try {
+        window['process'].once('uncaughtException', function() {
+            var win = require('nw.gui').Window.get();
+            if(!win.isDevToolsOpen()) {
+                win.showDevTools();
+            }
+        });
+    } catch(e) {/* Browser */}
+
+    function startDorito(){
+        dorito.init();
+        waitForDoritos();
+    }
+
+    function waitForDoritos(){
+        if(dorito.initDone) {
+            dorito.callDone();
+            doStartCrossCodePlz();
+        } else {
+            window.setTimeout(waitForDoritos, 100);
+        }
+    }
+
+    function doStartCrossCodePlz(){
+      if(window.startCrossCode){
+        dorito.ready();
+        $(".playOptions").fadeIn(200);
+        startCrossCode();
+      }
+      else{
+        window.setTimeout(doStartCrossCodePlz, 100);
+      }
+    }
+
+    window.onload = startDorito;
+</script>
+
+</body>
+</html>
