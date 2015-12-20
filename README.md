@@ -1,8 +1,6 @@
 # Dorito
 A modloader for CrossCode(and maybe other JS games).
 
---------
-
 ## Installation
 #### CrossCode
 This tutorial requires you to extract the game. Search the CrossCode forum for more details.
