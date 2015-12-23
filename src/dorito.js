@@ -41,6 +41,13 @@ Dorito.prototype.Events = {
     DoritoInitialized: new signals.Signal(),
     /**
     * Fires just before the game launches.
+    * @event Dorito#Events#GameLoaded
+    */
+    GameLoaded: new signals.Signal(),
+    /**
+    * Fires just before the game launches.
+    * @deprecated Game-specific.
+    * Use {@link Dorito#Events#event:GameLoaded} instead.
     * @event Dorito#Events#CrossCodeLoaded
     */
     CrossCodeLoaded: new signals.Signal()
@@ -206,13 +213,14 @@ Dorito.prototype.loadAllBrowser = function() {
         });
 };
 /**
-* Function called when window.startCrossCode exists.
-* @fires Dorito#Events#CrossCodeLoaded
+* Function called when the start function exists.
+* @fires Dorito#Events#GameLoaded
 * @memberof Dorito
 */
 Dorito.prototype.ready = function() {
     if (this.initDone) {
-        console.log("CrossCode Ready");
+        console.log("Game Ready");
+        this.Events.GameLoaded.dispatch();
         this.Events.CrossCodeLoaded.dispatch();
     } else {
         console.error("WARN: Didn't load in time!");
