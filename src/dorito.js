@@ -312,6 +312,81 @@ var DoritoAPI = function(dorito) {
     this.self = this;
 
     /**
+     * Getter/Setter wrappers for easy property watching.
+     * For more information about how to properly use these, read {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects#Defining_getters_and_setters}
+     * @name Trackers
+     * @namespace Trackers
+     * @memberof DoritoAPI
+     */
+    this.Trackers = {};
+
+    /**
+     * Determines whenever an object is a function by comparing its class name.
+     * @param {Object} fn - the object to check
+     * @returns {Boolean}
+     * @private
+     */
+    function isFunction(fn) {
+        return behavior && getClass.call(object) == '[object Function]';
+    }
+
+    /**
+     * Adds a getter function `behavior` to a property `property` inside
+     * `object`.
+     * @param {Object} object - the object that contains `property`
+     * @param {Object} property - the property to track
+     * @param {Function} behavior - the getter function
+     * @returns {Object} - the modified object
+     * @memberof DoritoAPI.Trackers
+     * @name onRead
+     */
+    this.Trackers.onRead = function(object, property, behavior) {
+        if(!isFunction(behavior)) {
+            throw new TypeError('behavior is not a function!');
+        }
+        return Object.defineProperty(object, property, { get: behavior });
+    };
+
+    /**
+     * Adds a setter function `behavior` to a property `property` inside
+     * `object`.
+     * @param {Object} object - the object that contains `property`
+     * @param {Object} property - the property to track
+     * @param {Function} behavior - the setter function
+     * @returns {Object} - the modified object
+     * @memberof DoritoAPI.Trackers
+     * @name onWrite
+     */
+    this.Trackers.onWrite = function(object, property, behavior) {
+        if(!isFunction(behavior)) {
+            throw new TypeError('behavior is not a function!');
+        }
+        return Object.defineProperty(object, property, { set: behavior });
+    };
+
+    /**
+     * A shorthand function that combines both {@link DoritoAPI.Trackers.onRead onRead}
+     * and {@link DoritoAPI.Trackers.onWrite onWrite}
+     * @param {Object} object - the object that contains `property`
+     * @param {Object} property - the property to track
+     * @param {Function} behavior - the getter function
+     * @param {Function} behavior - the setter function
+     * @returns {Object} - the modified object
+     * @memberof DoritoAPI.Trackers
+     * @name onReadWrite
+     */
+    this.Trackers.onReadWrite = function(object, property, read, write) {
+        if(!isFunction(read) || !isFunction(write)) {
+            throw new TypeError('behavior is not a function!');
+        }
+        return Object.defineProperty(object, property, {
+            get: read,
+            set: write
+        });
+    };
+    
+
+    /**
     * Functions to inject code in functions(yo dawg).
     * Note: the actually only function here was originally made by
     * {@link http://me.dt.in.th Thai Pangsakulyanont}. Author credit will
