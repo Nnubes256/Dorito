@@ -778,6 +778,49 @@ var DoritoAPI = function(dorito) {
     this.GameCanvas.getContext = function() {
         return this.GameCanvas.canvas.getContext('2d');
     };
+    
+    /**
+    * Utilities for working with Impact and Impact-like inheritance(which
+    * is actually based by John Resig's Simple Javascript Inheritance)
+    * @member {DoritoAPI}
+    * @namespace ImpactUtils
+    * @memberof DoritoAPI
+    */
+    this.ImpactUtils = {};
+    
+    /**
+    * **EXPERIMENTAL!** Overwrite properties in a class.
+    * @summary Overwrite properties in a class.
+    * @param {Object} properties - The properties to be overwriten to the class.
+    * @name inject
+    * @memberof DoritoAPI.ImpactUtils
+    */
+    this.ImpactUtils.inject = function(properties) {
+        // TODO should probably move fnTest from local var to ImpactUtils.
+        var fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/
+        var proto = this.prototype;
+        var parent = {};
+        for( var name in prop ) {
+            if( 
+                typeof(prop[name]) == "function" &&
+                typeof(proto[name]) == "function" && 
+                fnTest.test(prop[name])
+            ) {
+                parent[name] = proto[name]; // save original function
+                proto[name] = (function(name, fn){
+                    return function() {
+                        var tmp = this.parent;
+                        this.parent = parent[name];
+                        var ret = fn.apply(this, arguments);
+                        this.parent = tmp;
+                        return ret;
+                    };
+                })( name, prop[name] );
+            } else {
+                proto[name] = prop[name];
+            }
+        }
+    };
 
     console.log("DoritoAPI loaded");
 };
