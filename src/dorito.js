@@ -791,14 +791,15 @@ var DoritoAPI = function(dorito) {
     /**
     * **EXPERIMENTAL!** Overwrite properties in a class.
     * @summary Overwrite properties in a class.
+    * @param {Object} class - The class to be overwritten.
     * @param {Object} properties - The properties to be overwriten to the class.
     * @name inject
     * @memberof DoritoAPI.ImpactUtils
     */
-    this.ImpactUtils.inject = function(properties) {
+    this.ImpactUtils.inject = function(class, properties) {
         // TODO should probably move fnTest from local var to ImpactUtils.
         var fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/
-        var proto = this.prototype;
+        var proto = class.prototype;
         var parent = {};
         for( var name in prop ) {
             if( 
